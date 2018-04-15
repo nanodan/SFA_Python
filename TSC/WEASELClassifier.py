@@ -1,14 +1,15 @@
-from  src.transformation.WEASEL import *
+from .WEASEL import WEASEL
 import pandas as pd
 import numpy as np
 import random
+import math
 
-from src.LibLinear.Feature import *
-from src.LibLinear.FeatureNode import *
-from src.LibLinear.Linear import *
-from src.LibLinear.Parameter import *
-from src.LibLinear.Problem import *
-from src.LibLinear.SolverType import *
+# from src.LibLinear.Feature import *
+from .FeatureNode import FeatureNode
+from .Linear import Linear
+from .Parameter import Parameter
+from .Problem import Problem
+from .SolverType import SolverType
 
 
 '''

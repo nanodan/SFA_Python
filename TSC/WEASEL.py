@@ -1,6 +1,10 @@
-from  src.transformation.SFA import *
+from .SFA import SFA
+from .TimeSeries import int2byte
 import progressbar
 from joblib import Parallel, delayed
+import numpy as np
+import pandas as pd
+import math
 
 global MAX_WINDOW_LENGTH
 MAX_WINDOW_LENGTH = 250
@@ -21,9 +25,7 @@ class WEASEL():
         self.words = [None for _ in range(len(self.windowLengths))]
 
         print("Fitting ")
-        with progressbar.ProgressBar(max_value=len(self.windowLengths)) as bar:
-            Parallel(n_jobs=4, backend="threading")(delayed(self.createWords, check_pickle=False)(samples, w, bar) for w in range(len(self.windowLengths)))
-        print()
+        Parallel(n_jobs=4, backend="threading")(delayed(self.createWords, check_pickle=False)(samples, w) for w in range(len(self.windowLengths)))
 
         return self.words
 
