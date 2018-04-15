@@ -1,8 +1,11 @@
-from  src.transformation.BOSSVS import *
+from .BOSSVS import BOSSVS
 import random
 from statistics import mode
 import progressbar
 from joblib import Parallel, delayed
+import math
+import numpy as np
+import pandas as pd
 
 '''
 The Bag-of-SFA-Symbols in Vector Space classifier as published in
@@ -77,7 +80,7 @@ class BOSSVSClassifier():
         return maxCorrect
 
 
-    def fitIndividual(self, NormMean, samples, windows, i, bar):
+    def fitIndividual(self, NormMean, samples, windows, i):
         uniqueLabels = np.unique(samples["Labels"])
         model = {"window": windows[i], "normMean": NormMean, "correctTraining": 0}
         bossvs = BOSSVS(self.maxF, self.maxS, windows[i], NormMean)
@@ -104,7 +107,6 @@ class BOSSVSClassifier():
         bag = bossvs.createBagOfPattern(words, samples, model["f"])
         model["idf"] = bossvs.createTfIdf(bag, [i for i in range(samples["Samples"])], uniqueLabels, samples["Labels"])
         model["bossvs"] = bossvs
-        bar.update(i)
         self.results.append(model)
 
 
@@ -113,9 +115,7 @@ class BOSSVSClassifier():
         self.results = []
 
         print(self.NAME + "  Fitting for a norm of " + str(normMean))
-        with progressbar.ProgressBar(max_value=len(windows)) as bar:
-            Parallel(n_jobs=4, backend="threading")(delayed(self.fitIndividual, check_pickle=False)(normMean, samples, windows, i, bar) for i in range(len(windows)))
-        print()
+        Parallel(n_jobs=4, backend="threading")(delayed(self.fitIndividual, check_pickle=False)(normMean, samples, windows, i) for i in range(len(windows)))
 
         # Find best correctTraining
         for i in range(len(self.results)):

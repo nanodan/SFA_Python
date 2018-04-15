@@ -1,8 +1,9 @@
-from  src.transformation.MFT import *
-from src.timeseries.TimeSeries import *
-from src.timeseries.TimeSeries import TimeSeries
+from .MFT import MFT
+from .TimeSeries import TimeSeries
+from .TimeSeries import getDisjointSequences
 import math
 import pandas as pd
+import numpy as np
 
 '''
  Symbolic Fourier Approximation as published in

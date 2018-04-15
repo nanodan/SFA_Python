@@ -1,8 +1,8 @@
 import numpy as np
 import math
 
-from src.timeseries.TimeSeries import calcIncreamentalMeanStddev
-from src.timeseries.TimeSeries import TimeSeries
+from .TimeSeries import calcIncreamentalMeanStddev
+from .TimeSeries import TimeSeries
 
 
 class MFT:

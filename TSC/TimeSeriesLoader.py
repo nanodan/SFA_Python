@@ -1,9 +1,9 @@
 import pandas as pd
-from src.timeseries.TimeSeries import TimeSeries
+from .TimeSeries import TimeSeries
 import os
 
-uv_dir = os.getcwd()[:-5] + "\\datasets\\univariate\\"
-mv_dir = os.getcwd()[:-5] + "\\datasets\\multivariate\\"
+uv_dir = os.getcwd()[:] + "\\datasets\\univariate\\"
+mv_dir = os.getcwd()[:] + "\\datasets\\multivariate\\"
 
 
 def uv_load(dataset_name):

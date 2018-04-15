@@ -1,6 +1,7 @@
-from  src.transformation.SFA import *
+from .SFA import SFA
 import random
 import math
+from .TimeSeries import int2byte
 
 
 class BOSSVS():
